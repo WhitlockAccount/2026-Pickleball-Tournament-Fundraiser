@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TD1 Pickleball">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1f8a55">
+<link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231f8a55'/><text x='50' y='62' font-size='55' text-anchor='middle'>🏓</text></svg>">
+<title>2026 PickleBall Doubles Tournament - TD1 Fundraiser</title>
+<style>
+  :root{
+    --green:#1f8a55;
+    --green-dark:#166841;
+    --yellow:#f2c14e;
+    --bg:#f5f7f6;
+    --card:#ffffff;
+    --text:#1c2b22;
+    --muted:#6b7a72;
+    --danger:#d9534f;
+    --border:#e1e6e3;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    padding-bottom:70px;
+    -webkit-tap-highlight-color:transparent;
+  }
+  header{
+    background-image:
+      linear-gradient(135deg, rgba(10,40,25,0.62), rgba(10,40,25,0.72)),
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220"><rect width="400" height="220" fill="%231f8a55"/><rect x="20" y="20" width="360" height="180" fill="%23156ec4"/><rect x="20" y="20" width="360" height="180" fill="none" stroke="%23ffffff" stroke-width="4"/><line x1="200" y1="20" x2="200" y2="200" stroke="%23ffffff" stroke-width="3"/><line x1="20" y1="83" x2="380" y2="83" stroke="%23ffffff" stroke-width="3"/><line x1="20" y1="137" x2="380" y2="137" stroke="%23ffffff" stroke-width="3"/><rect x="18" y="18" width="364" height="184" fill="none" stroke="%23ffffff" stroke-width="0"/><rect x="0" y="105" width="400" height="10" fill="%23eef0ee"/><rect x="0" y="105" width="400" height="10" fill="none" stroke="%23222222" stroke-width="1"/></svg>');
+    background-size: cover;
+    background-position: center;
+    color:#fff;
+    padding:18px 16px 14px;
+    position:sticky;
+    top:0;
+    z-index:10;
+  }
+  header h1{
+    margin:0;
+    font-size:1.3rem;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    text-shadow:0 1px 4px rgba(0,0,0,0.5);
+  }
+  header .sub{
+    font-size:0.8rem;
+    opacity:0.9;
+    margin-top:2px;
+    text-shadow:0 1px 3px rgba(0,0,0,0.5);
+  }
+  main{
+    padding:14px;
+    max-width:600px;
+    margin:0 auto;
+  }
+  .card{
+    background:var(--card);
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:14px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.06);
+    border:1px solid var(--border);
+  }
+  .card h2{
+    margin:0 0 10px;
+    font-size:1.05rem;
+    color:var(--green-dark);
+  }
+  .row{
+    display:flex;
+    gap:8px;
+    margin-bottom:8px;
+  }
+  input[type=text],input[type=number],select{
+    flex:1;
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    font-size:1rem;
+    background:#fafcfb;
+    min-width:0;
+  }
+  button{
+    border:none;
+    border-radius:10px;
+    padding:10px 14px;
+    font-size:0.95rem;
+    font-weight:600;
+    cursor:pointer;
+    background:var(--green);
+    color:#fff;
+    white-space:nowrap;
+  }
+  button.secondary{
+    background:#eef3f0;
+    color:var(--green-dark);
+  }
+  button.danger{
+    background:#fbeceb;
+    color:var(--danger);
+  }
+  button.small{
+    padding:6px 10px;
+    font-size:0.82rem;
+  }
+  button:disabled{
+    opacity:0.5;
+    cursor:not-allowed;
+  }
+  ul.plain{
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .team-list-head{
+    display:grid;
+    grid-template-columns:56px 1fr 30px 28px;
+    gap:8px;
+    padding:0 4px 6px;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--muted);
+    font-weight:700;
+  }
+  .player-item{
+    display:grid;
+    grid-template-columns:56px 1fr 30px 28px;
+    align-items:center;
+    padding:7px 4px;
+    border-bottom:1px solid var(--border);
+    gap:8px;
+  }
+  .player-item:last-child{border-bottom:none;}
+  .team-label{
+    font-weight:700;
+    font-size:0.85rem;
+    color:var(--green-dark);
+    white-space:nowrap;
+  }
+  .player-name-input{
+    padding:6px 9px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    font-size:0.85rem;
+    background:#fafcfb;
+    min-width:0;
+    width:100%;
+  }
+  .team-names{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    min-width:0;
+  }
+  .badge{
+    font-size:0.7rem;
+    padding:3px 8px;
+    border-radius:20px;
+    background:#eef3f0;
+    color:var(--green-dark);
+    font-weight:600;
+  }
+  .badge.in{background:var(--green);color:#fff;}
+  .checkbtn{
+    width:30px;height:30px;border-radius:50%;
+    border:2px solid var(--border);
+    background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1rem;color:#fff;flex-shrink:0;
+  }
+  .checkbtn.checked{background:var(--green);border-color:var(--green);}
+  .empty{
+    color:var(--muted);
+    font-size:0.9rem;
+    text-align:center;
+    padding:18px 4px;
+  }
+  nav.tabs{
+    position:fixed;
+    bottom:0;left:0;right:0;
+    display:flex;
+    background:#fff;
+    border-top:1px solid var(--border);
+    padding-bottom:env(safe-area-inset-bottom);
+    z-index:20;
+  }
+  nav.tabs button{
+    flex:1;
+    background:none;
+    color:var(--muted);
+    border-radius:0;
+    padding:10px 4px 8px;
+    font-size:0.72rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+  }
+  nav.tabs button .ic{font-size:1.2rem;}
+  nav.tabs button.active{color:var(--green-dark);}
+  .tabpage{display:none;}
+  .tabpage.active{display:block;}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:0.88rem;
+  }
+  th,td{
+    text-align:left;
+    padding:7px 4px;
+    border-bottom:1px solid var(--border);
+  }
+  th{color:var(--muted);font-weight:600;font-size:0.75rem;text-transform:uppercase;}
+  td.num{text-align:center;}
+  .match{
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:10px;
+    margin-bottom:10px;
+  }
+  .match .meta{
+    font-size:0.72rem;
+    color:var(--muted);
+    margin-bottom:6px;
+    display:flex;
+    justify-content:space-between;
+  }
+  .match .teams{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .match .team{
+    flex:1;
+    font-weight:600;
+    font-size:0.92rem;
+    min-width:0;
+  }
+  .match input[type=number]{
+    width:48px;
+    flex:none;
+    text-align:center;
+    padding:8px 4px;
+  }
+  .vs{color:var(--muted);font-size:0.8rem;}
+  .round-title{
+    font-size:0.78rem;
+    font-weight:700;
+    color:var(--green-dark);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin:14px 0 6px;
+  }
+  .round-title:first-child{margin-top:0;}
+  .bracket-round{
+    margin-bottom:18px;
+  }
+  .winner-banner{
+    background:var(--yellow);
+    color:#5c4400;
+    font-weight:700;
+    text-align:center;
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:14px;
+  }
+  .toolbar{
+    display:flex;
+    gap:8px;
+    margin-bottom:12px;
+    flex-wrap:wrap;
+  }
+  .helptext{
+    font-size:0.8rem;
+    color:var(--muted);
+    margin:0 0 10px;
+  }
+  .match.done{
+    background:#f5fbf7;
+  }
+  .winner-tag{
+    font-size:0.7rem;
+    color:var(--green);
+    font-weight:700;
+  }
+  .welcome-hero{
+    background:linear-gradient(135deg, var(--green), var(--green-dark));
+    color:#fff;
+  }
+  .welcome-hero .helptext{
+    color:#fff !important;
+    opacity:0.95;
+  }
+  .info-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    font-size:0.88rem;
+  }
+  .info-list li{
+    padding:7px 2px;
+    border-bottom:1px solid var(--border);
+    line-height:1.4;
+  }
+  .info-list li:last-child{
+    border-bottom:none;
+  }
+  .info-list a{
+    color:var(--green-dark);
+    font-weight:600;
+    text-decoration:underline;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏓 2026 PickleBall Doubles Tournament - TD1 Fundraiser</h1>
+  <div class="sub" id="headerSub">CSRS, Charlotte NC — July 29th, 2026</div>
+</header>
+
+<main>
+
+  <!-- WELCOME TAB -->
+  <section class="tabpage active" id="page-welcome">
+    <div class="card welcome-hero">
+      <h2 style="margin-bottom:4px;">🏓 Welcome!</h2>
+      <p class="helptext" style="font-size:0.92rem;color:var(--text);">Thanks for being part of the 2026 PickleBall Doubles Tournament — TD1 Fundraiser. Use the tabs below to register teams, view the schedule, check standings, and follow the bracket.</p>
+    </div>
+
+    <div class="card">
+      <h2>Tournament Overview</h2>
+      <ul class="info-list">
+        <li><strong>Event:</strong> 2026 PickleBall Doubles Tournament - TD1 Fundraiser</li>
+        <li><strong>Location:</strong> CSRS, Charlotte NC</li>
+        <li><strong>Date:</strong> Wednesday, July 29th, 2026</li>
+        <li><strong>Format:</strong> Doubles — round robin pool play followed by a single-elimination bracket</li>
+        <li><strong>Courts:</strong> 2 courts running simultaneously</li>
+        <li><strong>Schedule:</strong> Matches start at 8:00 AM, 30 minutes each, back-to-back all day</li>
+        <li><strong>Field size:</strong> Up to 30 doubles teams</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Fundraiser Details</h2>
+      <p class="helptext" style="font-size:0.88rem;color:var(--text);margin-bottom:8px;">
+        This tournament is a fundraiser — entry fees and donations collected on tournament day go toward supporting our community programs. Every team's participation helps us reach our goal.
+      </p>
+      <ul class="info-list">
+        <li><strong>Entry fee:</strong> $30 per player / $60 per team (cash or card accepted at check-in)</li>
+        <li><strong>Donations:</strong> Welcome at the registration table all day</li>
+        <li><strong>Prizes:</strong> Awarded to top finishers at the close of bracket play</li>
+        <li><strong>Questions:</strong> Ask any event organizer on-site</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>About T1D &amp; Breakthrough T1D</h2>
+      <p class="helptext" style="font-size:0.88rem;color:var(--text);margin-bottom:8px;">
+        This tournament's proceeds support Breakthrough T1D (formerly JDRF), the leading global organization funding type 1 diabetes (T1D) research and advocacy.
+      </p>
+      <ul class="info-list">
+        <li><strong>What is T1D?</strong> A chronic autoimmune disease in which the immune system attacks the insulin-producing cells in the pancreas. It is not caused by diet or lifestyle, and there is currently no cure.</li>
+        <li><strong>Who it affects:</strong> About 1.5 million people in the U.S. and 9.5 million people worldwide are living with T1D; it can be diagnosed at any age.</li>
+        <li><strong>Daily impact:</strong> People with T1D must take insulin every day (by injection or pump) to survive and manage blood sugar.</li>
+        <li><strong>Breakthrough T1D's mission:</strong> Funding research toward cures and better treatments, improving access to insulin and technology, and supporting the T1D community.</li>
+        <li><strong>Learn more:</strong> <a href="https://www.breakthrought1d.org/t1d-basics/" target="_blank" rel="noopener">breakthrought1d.org/t1d-basics</a></li>
+        <li><strong>Support this fundraiser:</strong> <a href="https://www2.breakthrought1d.org/site/SPageServer?pagename=diy_participant_center&pc2_page=center&autologin=true&fr_id=10786#/pc-dashboard" target="_blank" rel="noopener">Donate via our team fundraising page</a></li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- RULES TAB -->
+  <section class="tabpage" id="page-rules">
+    <div class="card">
+      <h2>Tournament Rules</h2>
+      <p class="round-title" style="margin-top:0;">Scoring</p>
+      <ul class="info-list">
+        <li>Games are played to <strong>11 points, win by 2</strong> (cap at 15 if needed to finish on time)</li>
+        <li>Traditional side-out scoring — only the serving team can score a point</li>
+        <li>Server starts each service sequence calling the score as: server score, receiver score, server number (e.g. "4-2-1")</li>
+        <li>Standard double-bounce rule applies: each side must let the ball bounce once before volleying</li>
+        <li>No volleying inside the non-volley zone ("the kitchen")</li>
+        <li>Let serves are played, not replayed (ball touching the net on serve and landing in is good)</li>
+      </ul>
+      <p class="round-title">Round Robin &amp; Advancement</p>
+      <ul class="info-list">
+        <li>Each checked-in team plays every other checked-in team once during pool play</li>
+        <li>Standings are ranked by: 1) match wins, 2) total points scored, 3) head-to-head result</li>
+        <li>Top teams from the round robin advance to the single-elimination bracket</li>
+        <li>The bracket is seeded using final round robin standings, with byes given to the top seeds if the field isn't a power of 2</li>
+        <li>Bracket matches are single elimination — one loss and a team is out</li>
+      </ul>
+      <p class="round-title">Conduct</p>
+      <ul class="info-list">
+        <li>Be on time for scheduled matches — courts run on a fixed time slot all day</li>
+        <li>Self-officiate fairly; call your own lines and faults honestly</li>
+        <li>Good sportsmanship is expected from all players, all day</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- REGISTER TAB -->
+  <section class="tabpage" id="page-register">
+    <div class="card">
+      <h2>Doubles Teams (<span id="playerCount">0</span>)</h2>
+      <p class="helptext">Each team has 2 players. Type both names into the boxes next to their team number, then check them in when they arrive.</p>
+      <div class="team-list-head">
+        <span>Team</span><span>Players</span><span></span><span></span>
+      </div>
+      <ul class="plain" id="playerList"></ul>
+      <div class="empty" id="playerEmpty">No teams yet.</div>
+      <button id="addTeamBtn" class="secondary small" style="margin-top:10px;">+ Add Team</button>
+    </div>
+  </section>
+
+  <!-- SCHEDULE TAB -->
+  <section class="tabpage" id="page-schedule">
+    <div class="card">
+      <h2>Round Robin Setup</h2>
+      <p class="helptext" style="margin-bottom:12px;">2 courts running at the same time, 30 min per match, starting <strong>8:00 AM on Wed, 7/29</strong> and running back-to-back all day.</p>
+      <button id="genScheduleBtn">Generate Schedule</button>
+    </div>
+    <div class="card" id="scheduleCard" style="display:none;">
+      <h2>Matches</h2>
+      <div id="scheduleList"></div>
+    </div>
+  </section>
+
+  <!-- STANDINGS TAB -->
+  <section class="tabpage" id="page-standings">
+    <div class="card">
+      <h2>Standings</h2>
+      <table id="standingsTable">
+        <thead>
+          <tr><th>#</th><th>Player/Team</th><th class="num">W</th><th class="num">L</th><th class="num">Pts</th></tr>
+        </thead>
+        <tbody id="standingsBody"></tbody>
+      </table>
+      <div class="empty" id="standingsEmpty">No completed matches yet.</div>
+    </div>
+  </section>
+
+  <!-- BRACKET TAB -->
+  <section class="tabpage" id="page-bracket">
+    <div class="card">
+      <h2>Single-Elimination Bracket</h2>
+      <div class="toolbar">
+        <button id="genBracketStandingsBtn" class="secondary small">Seed by Standings</button>
+        <button id="genBracketCheckinBtn" class="secondary small">Seed by Check-in Order</button>
+      </div>
+      <p class="helptext">Generates a single-elimination bracket. Byes are given to top seeds if the field isn't a power of 2.</p>
+    </div>
+    <div class="card" id="bracketCard" style="display:none;">
+      <div id="bracketWinner"></div>
+      <div id="bracketRounds"></div>
+    </div>
+  </section>
+
+</main>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-page="welcome"><span class="ic">🏠</span>Overview</button>
+  <button class="tab-btn" data-page="register"><span class="ic">📝</span>Register</button>
+  <button class="tab-btn" data-page="schedule"><span class="ic">📅</span>Schedule</button>
+  <button class="tab-btn" data-page="standings"><span class="ic">📊</span>Standings</button>
+  <button class="tab-btn" data-page="bracket"><span class="ic">🏆</span>Bracket</button>
+  <button class="tab-btn" data-page="rules"><span class="ic">📋</span>Rules</button>
+</nav>
+
+<script>
+(function(){
+  "use strict";
+
+  var STORAGE_KEY = "pbTournamentState_v1";
+  var NUM_COURTS = 2;
+  var MATCH_MINUTES = 30;
+  var TOURNAMENT_START = new Date(2026, 6, 29, 8, 0, 0); // July 29, 2026, 8:00 AM (month is 0-indexed)
+
+  var DEFAULT_TEAM_COUNT = 30;
+
+  var state = loadState() || {
+    players: [],       // {id, name (="Team N"), player1, player2, checkedIn}
+    schedule: null,    // {courts:N, rounds:[[{id,court,p1,p2,s1,s2}]]}
+    bracket: null       // {rounds:[[{id,p1,p2,s1,s2,winner}]]}
+  };
+
+  if(state.players.length === 0){
+    for(var ti=1; ti<=DEFAULT_TEAM_COUNT; ti++){
+      state.players.push({ id: uid(), name: "Team " + ti, player1: "", player2: "", checkedIn: false });
+    }
+    saveState();
+  } else {
+    // migrate older single-field "players" string into player1/player2
+    state.players.forEach(function(p){
+      if(p.player1 === undefined){
+        p.player1 = p.players || "";
+        p.player2 = "";
+        delete p.players;
+      }
+    });
+  }
+
+  function loadState(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  }
+  function saveState(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+  }
+  function uid(){ return Math.random().toString(36).slice(2,10); }
+
+  // ---------- TABS ----------
+  var tabBtns = document.querySelectorAll(".tab-btn");
+  tabBtns.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      tabBtns.forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      document.querySelectorAll(".tabpage").forEach(function(p){ p.classList.remove("active"); });
+      document.getElementById("page-"+btn.dataset.page).classList.add("active");
+      if(btn.dataset.page === "standings") renderStandings();
+    });
+  });
+
+  // ---------- REGISTER ----------
+  var addTeamBtn = document.getElementById("addTeamBtn");
+  var playerList = document.getElementById("playerList");
+  var playerCount = document.getElementById("playerCount");
+  var playerEmpty = document.getElementById("playerEmpty");
+
+  addTeamBtn.addEventListener("click", function(){
+    var nextNum = state.players.length + 1;
+    state.players.push({ id: uid(), name: "Team " + nextNum, player1: "", player2: "", checkedIn: false });
+    saveState();
+    renderPlayers();
+  });
+
+  function renderPlayers(){
+    playerList.innerHTML = "";
+    playerCount.textContent = state.players.length;
+    playerEmpty.style.display = state.players.length ? "none" : "block";
+    state.players.forEach(function(p){
+      var li = document.createElement("li");
+      li.className = "player-item";
+
+      var label = document.createElement("div");
+      label.className = "team-label";
+      label.textContent = p.name;
+
+      var namesWrap = document.createElement("div");
+      namesWrap.className = "team-names";
+
+      var name1Input = document.createElement("input");
+      name1Input.type = "text";
+      name1Input.className = "player-name-input";
+      name1Input.placeholder = "Player 1 name";
+      name1Input.maxLength = 30;
+      name1Input.value = p.player1 || "";
+      name1Input.addEventListener("input", function(){
+        p.player1 = name1Input.value;
+        saveState();
+      });
+
+      var name2Input = document.createElement("input");
+      name2Input.type = "text";
+      name2Input.className = "player-name-input";
+      name2Input.placeholder = "Player 2 name";
+      name2Input.maxLength = 30;
+      name2Input.value = p.player2 || "";
+      name2Input.addEventListener("input", function(){
+        p.player2 = name2Input.value;
+        saveState();
+      });
+
+      namesWrap.appendChild(name1Input);
+      namesWrap.appendChild(name2Input);
+
+      var check = document.createElement("div");
+      check.className = "checkbtn" + (p.checkedIn ? " checked" : "");
+      check.textContent = p.checkedIn ? "✓" : "";
+      check.addEventListener("click", function(){
+        p.checkedIn = !p.checkedIn;
+        saveState();
+        renderPlayers();
+        updateHeaderSub();
+      });
+
+      var del = document.createElement("button");
+      del.className = "danger small";
+      del.textContent = "✕";
+      del.addEventListener("click", function(){
+        state.players = state.players.filter(function(x){ return x.id !== p.id; });
+        saveState();
+        renderPlayers();
+        updateHeaderSub();
+      });
+
+      li.appendChild(label);
+      li.appendChild(namesWrap);
+      li.appendChild(check);
+      li.appendChild(del);
+      playerList.appendChild(li);
+    });
+    updateHeaderSub();
+  }
+
+  function checkedInPlayers(){
+    return state.players.filter(function(p){ return p.checkedIn; });
+  }
+
+  var HEADER_EVENT_INFO = "CSRS, Charlotte NC — July 29th, 2026";
+
+  function updateHeaderSub(){
+    var total = state.players.length;
+    var inCount = checkedInPlayers().length;
+    var sub = document.getElementById("headerSub");
+    if(total === 0){
+      sub.textContent = HEADER_EVENT_INFO;
+    } else {
+      sub.textContent = HEADER_EVENT_INFO + " · " + inCount + " checked in of " + total + " registered";
+    }
+  }
+
+  // ---------- SCHEDULE (Round Robin) ----------
+  var genScheduleBtn = document.getElementById("genScheduleBtn");
+  var scheduleCard = document.getElementById("scheduleCard");
+  var scheduleList = document.getElementById("scheduleList");
+
+  function formatTime(d){
+    var h = d.getHours();
+    var m = d.getMinutes();
+    var ampm = h >= 12 ? "PM" : "AM";
+    var h12 = h % 12;
+    if(h12 === 0) h12 = 12;
+    var mm = m < 10 ? "0"+m : ""+m;
+    return h12 + ":" + mm + " " + ampm;
+  }
+
+  function roundStartTime(roundIndex){
+    return new Date(TOURNAMENT_START.getTime() + roundIndex * MATCH_MINUTES * 60000);
+  }
+
+  // Round robin pairing using circle method, then distribute matches per round across courts.
+  function buildRoundRobinPairs(ids){
+    var list = ids.slice();
+    var hasBye = false;
+    if(list.length % 2 !== 0){
+      list.push(null); // bye placeholder
+      hasBye = true;
+    }
+    var n = list.length;
+    var rounds = [];
+    var arr = list.slice();
+    for(var r=0; r<n-1; r++){
+      var roundPairs = [];
+      for(var i=0;i<n/2;i++){
+        var a = arr[i], b = arr[n-1-i];
+        if(a !== null && b !== null) roundPairs.push([a,b]);
+      }
+      rounds.push(roundPairs);
+      // rotate (keep first fixed)
+      var fixed = arr[0];
+      var rest = arr.slice(1);
+      rest.unshift(rest.pop());
+      arr = [fixed].concat(rest);
+    }
+    return rounds; // array of rounds, each an array of [idA, idB]
+  }
+
+  genScheduleBtn.addEventListener("click", function(){
+    var players = checkedInPlayers();
+    if(players.length < 2){
+      alert("Check in at least 2 players/teams first.");
+      return;
+    }
+    var courts = NUM_COURTS;
+    var ids = players.map(function(p){ return p.id; });
+    var rrRounds = buildRoundRobinPairs(ids);
+
+    // Flatten into matches distributed across courts, grouped into "rounds" of <=courts matches
+    var rounds = [];
+    rrRounds.forEach(function(pairList){
+      var idx = 0;
+      while(idx < pairList.length){
+        var chunk = pairList.slice(idx, idx+courts);
+        var roundMatches = chunk.map(function(pair, ci){
+          return {
+            id: uid(),
+            court: ci+1,
+            p1: pair[0], p2: pair[1],
+            s1: null, s2: null
+          };
+        });
+        rounds.push(roundMatches);
+        idx += courts;
+      }
+    });
+
+    state.schedule = { courts: courts, rounds: rounds };
+    saveState();
+    renderSchedule();
+  });
+
+  function playerName(id){
+    var p = state.players.find(function(x){ return x.id === id; });
+    if(!p) return "?";
+    var names = [p.player1, p.player2].filter(function(n){ return n && n.trim(); }).join(" & ");
+    return names ? (p.name + " (" + names + ")") : p.name;
+  }
+
+  function renderSchedule(){
+    if(!state.schedule){ scheduleCard.style.display = "none"; return; }
+    scheduleCard.style.display = "block";
+    scheduleList.innerHTML = "";
+    state.schedule.rounds.forEach(function(round, ri){
+      var title = document.createElement("div");
+      title.className = "round-title";
+      title.textContent = "Round " + (ri+1) + " — " + formatTime(roundStartTime(ri));
+      scheduleList.appendChild(title);
+      round.forEach(function(m){
+        scheduleList.appendChild(renderMatchEl(m, "Court " + m.court, function(){
+          saveState();
+          renderStandings();
+        }));
+      });
+    });
+  }
+
+  function renderMatchEl(m, metaLabel, onChange){
+    var wrap = document.createElement("div");
+    wrap.className = "match" + (m.s1 !== null && m.s2 !== null ? " done" : "");
+
+    var meta = document.createElement("div");
+    meta.className = "meta";
+    var left = document.createElement("span");
+    left.textContent = metaLabel;
+    var right = document.createElement("span");
+    if(m.s1 !== null && m.s2 !== null){
+      right.innerHTML = '<span class="winner-tag">' + (m.s1 > m.s2 ? esc(playerName(m.p1)) : m.s2 > m.s1 ? esc(playerName(m.p2)) : "Tie") + ' ✓</span>';
+    }
+    meta.appendChild(left);
+    meta.appendChild(right);
+
+    var teams = document.createElement("div");
+    teams.className = "teams";
+
+    var t1 = document.createElement("div");
+    t1.className = "team";
+    t1.textContent = m.p1 ? playerName(m.p1) : "BYE";
+
+    var s1 = document.createElement("input");
+    s1.type = "number";
+    s1.min = "0";
+    s1.value = m.s1 === null ? "" : m.s1;
+    s1.disabled = !m.p1 || !m.p2;
+
+    var vs = document.createElement("span");
+    vs.className = "vs";
+    vs.textContent = "vs";
+
+    var s2 = document.createElement("input");
+    s2.type = "number";
+    s2.min = "0";
+    s2.value = m.s2 === null ? "" : m.s2;
+    s2.disabled = !m.p1 || !m.p2;
+
+    var t2 = document.createElement("div");
+    t2.className = "team";
+    t2.textContent = m.p2 ? playerName(m.p2) : "BYE";
+
+    s1.addEventListener("input", function(){
+      m.s1 = s1.value === "" ? null : Number(s1.value);
+      refreshDoneClass();
+      if(onChange) onChange();
+    });
+    s2.addEventListener("input", function(){
+      m.s2 = s2.value === "" ? null : Number(s2.value);
+      refreshDoneClass();
+      if(onChange) onChange();
+    });
+
+    function refreshDoneClass(){
+      wrap.classList.toggle("done", m.s1 !== null && m.s2 !== null);
+      var doneNow = m.s1 !== null && m.s2 !== null;
+      right.innerHTML = doneNow ? ('<span class="winner-tag">' + (m.s1 > m.s2 ? esc(playerName(m.p1)) : m.s2 > m.s1 ? esc(playerName(m.p2)) : "Tie") + ' ✓</span>') : "";
+    }
+
+    teams.appendChild(t1);
+    teams.appendChild(s1);
+    teams.appendChild(vs);
+    teams.appendChild(s2);
+    teams.appendChild(t2);
+
+    wrap.appendChild(meta);
+    wrap.appendChild(teams);
+    return wrap;
+  }
+
+  function esc(s){
+    var d = document.createElement("div");
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  // ---------- STANDINGS ----------
+  var standingsBody = document.getElementById("standingsBody");
+  var standingsEmpty = document.getElementById("standingsEmpty");
+
+  function computeStandings(){
+    var stats = {};
+    state.players.forEach(function(p){
+      stats[p.id] = { id:p.id, name:playerName(p.id), sortName:p.name, w:0, l:0, pts:0, played:false };
+    });
+    if(state.schedule){
+      state.schedule.rounds.forEach(function(round){
+        round.forEach(function(m){
+          if(m.p1 && m.p2 && m.s1 !== null && m.s2 !== null){
+            stats[m.p1].played = true;
+            stats[m.p2].played = true;
+            stats[m.p1].pts += m.s1;
+            stats[m.p2].pts += m.s2;
+            if(m.s1 > m.s2){ stats[m.p1].w++; stats[m.p2].l++; }
+            else if(m.s2 > m.s1){ stats[m.p2].w++; stats[m.p1].l++; }
+          }
+        });
+      });
+    }
+    return Object.values(stats).filter(function(s){return s.played;}).sort(function(a,b){
+      if(b.w !== a.w) return b.w - a.w;
+      if(b.pts !== a.pts) return b.pts - a.pts;
+      return a.sortName.localeCompare(b.sortName, undefined, {numeric:true});
+    });
+  }
+
+  function renderStandings(){
+    var ranked = computeStandings();
+    standingsBody.innerHTML = "";
+    standingsEmpty.style.display = ranked.length ? "none" : "block";
+    ranked.forEach(function(s, i){
+      var tr = document.createElement("tr");
+      tr.innerHTML = "<td>"+(i+1)+"</td><td>"+esc(s.name)+"</td><td class='num'>"+s.w+"</td><td class='num'>"+s.l+"</td><td class='num'>"+s.pts+"</td>";
+      standingsBody.appendChild(tr);
+    });
+  }
+
+  // ---------- BRACKET ----------
+  var bracketCard = document.getElementById("bracketCard");
+  var bracketRounds = document.getElementById("bracketRounds");
+  var bracketWinner = document.getElementById("bracketWinner");
+
+  function nextPow2(n){
+    var p = 1;
+    while(p < n) p *= 2;
+    return p;
+  }
+
+  function buildBracket(orderedIds){
+    var size = nextPow2(orderedIds.length);
+    var seeds = orderedIds.slice();
+    while(seeds.length < size) seeds.push(null); // byes to lowest seeds (end of list)
+
+    // standard seeding order for bracket placement
+    var order = seedOrder(size);
+    var slots = order.map(function(seedIdx){ return seeds[seedIdx] !== undefined ? seeds[seedIdx] : null; });
+
+    var round1 = [];
+    for(var i=0;i<slots.length;i+=2){
+      var p1 = slots[i], p2 = slots[i+1];
+      var match = { id: uid(), p1:p1, p2:p2, s1:null, s2:null, winner:null };
+      // auto-advance byes
+      if(p1 && !p2) match.winner = p1;
+      if(p2 && !p1) match.winner = p2;
+      round1.push(match);
+    }
+    var rounds = [round1];
+    var prevCount = round1.length;
+    while(prevCount > 1){
+      var nextRound = [];
+      for(var j=0;j<prevCount/2;j++){
+        nextRound.push({ id: uid(), p1:null, p2:null, s1:null, s2:null, winner:null });
+      }
+      rounds.push(nextRound);
+      prevCount = nextRound.length;
+    }
+    propagateByes(rounds);
+    return { rounds: rounds };
+  }
+
+  function seedOrder(size){
+    // recursive standard tournament seeding
+    if(size === 1) return [0];
+    var prev = seedOrder(size/2);
+    var result = [];
+    prev.forEach(function(s){
+      result.push(s);
+      result.push(size - 1 - s);
+    });
+    return result;
+  }
+
+  function propagateByes(rounds){
+    for(var r=0;r<rounds.length-1;r++){
+      rounds[r].forEach(function(m, idx){
+        if(m.winner){
+          var nextMatch = rounds[r+1][Math.floor(idx/2)];
+          if(idx % 2 === 0) nextMatch.p1 = m.winner; else nextMatch.p2 = m.winner;
+          if(nextMatch.p1 && !nextMatch.p2) nextMatch.winner = nextMatch.p1;
+          if(nextMatch.p2 && !nextMatch.p1) nextMatch.winner = nextMatch.p2;
+        }
+      });
+    }
+  }
+
+  document.getElementById("genBracketStandingsBtn").addEventListener("click", function(){
+    var ranked = computeStandings();
+    var rankedIds = ranked.map(function(s){return s.id;});
+    var checkedIds = checkedInPlayers().map(function(p){return p.id;});
+    // include checked-in players not yet ranked, appended at end
+    checkedIds.forEach(function(id){ if(rankedIds.indexOf(id) === -1) rankedIds.push(id); });
+    if(rankedIds.length < 2){ alert("Need at least 2 checked-in players/teams."); return; }
+    state.bracket = buildBracket(rankedIds);
+    saveState();
+    renderBracket();
+  });
+
+  document.getElementById("genBracketCheckinBtn").addEventListener("click", function(){
+    var ids = checkedInPlayers().map(function(p){return p.id;});
+    if(ids.length < 2){ alert("Need at least 2 checked-in players/teams."); return; }
+    state.bracket = buildBracket(ids);
+    saveState();
+    renderBracket();
+  });
+
+  function renderBracket(){
+    if(!state.bracket){ bracketCard.style.display = "none"; return; }
+    bracketCard.style.display = "block";
+    bracketRounds.innerHTML = "";
+    bracketWinner.innerHTML = "";
+
+    var rounds = state.bracket.rounds;
+    var finalRound = rounds[rounds.length-1];
+    if(finalRound.length === 1 && finalRound[0].winner){
+      bracketWinner.innerHTML = '<div class="winner-banner">🏆 Champion: ' + esc(playerName(finalRound[0].winner)) + '</div>';
+    }
+
+    rounds.forEach(function(round, ri){
+      var sec = document.createElement("div");
+      sec.className = "bracket-round";
+      var title = document.createElement("div");
+      title.className = "round-title";
+      title.textContent = ri === rounds.length-1 ? "Final" : (ri === rounds.length-2 ? "Semifinal" : "Round " + (ri+1));
+      sec.appendChild(title);
+
+      round.forEach(function(m){
+        var label = (m.p1 && m.p2) ? "" : "Bye";
+        var el = renderMatchEl(m, label || ("Match"), function(){
+          if(m.s1 !== null && m.s2 !== null && m.s1 !== m.s2){
+            m.winner = m.s1 > m.s2 ? m.p1 : m.p2;
+            propagateByes(rounds);
+          } else {
+            m.winner = (m.p1 && !m.p2) ? m.p1 : (m.p2 && !m.p1 ? m.p2 : null);
+          }
+          saveState();
+          renderBracket();
+        });
+        sec.appendChild(el);
+      });
+      bracketRounds.appendChild(sec);
+    });
+  }
+
+  // ---------- INIT ----------
+  renderPlayers();
+  renderSchedule();
+  renderStandings();
+  renderBracket();
+
+})();
+</script>
+
+</body>
+</html>
